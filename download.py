@@ -3,8 +3,8 @@ import sys
 
 
 path_app = os.path.dirname(os.path.realpath(__file__))
-path_lib = path_app + '\lib'
-path_store = path_app + '\storage'
+path_lib = path_app + '/lib'
+path_store = path_app + '/storage'
 
 
 '''
@@ -36,19 +36,19 @@ def process(choice):
 
   url = input("URL(s): ")
   path_extra = input("Extra folder (empty for none): ")
-  downloader = path_lib + '\youtube-dl' + ('.exe' if os.name=='nt' else '.sh')
+  downloader = path_lib + '/youtube-dl' + ('.exe' if os.name=='nt' else '') + ' -i'
 
   if path_extra:
     path_extra += '/'
 
   if choice == 1: # Video
-    os.system("{0} -o \"{1}\single\{2}%(title)s-%(id)s.%(ext)s\" {3}".format(downloader, path_store, path_extra, url))
+    os.system("{0} -o \"{1}/single/{2}%(title)s-%(id)s.%(ext)s\" {3}".format(downloader, path_store, path_extra, url))
 
   elif choice == 2: # Playlist
-    os.system("{0} --yes-playlist -o \"{1}\playlist\{2}%(playlist)s\%(playlist_index)s - %(title)s.%(ext)s\" {3}".format(downloader, path_store, path_extra, url))
+    os.system("{0} --yes-playlist -o \"{1}/playlist/{2}%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s\" {3}".format(downloader, path_store, path_extra, url))
 
   elif choice == 3: # MP3
-    os.system("{0} --extract-audio --audio-format mp3 -o \"{1}\mp3\{2}%(title)s-%(id)s.%(ext)s\" {3}".format(downloader, path_store, path_extra, url))
+    os.system("{0} --extract-audio --audio-format mp3 -o \"{1}/mp3/{2}%(title)s-%(id)s.%(ext)s\" {3}".format(downloader, path_store, path_extra, url))
 
 
 '''
