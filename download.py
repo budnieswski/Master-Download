@@ -68,4 +68,9 @@ def menu():
 
 
 
-menu()
+if sys.version_info >= (3,5):
+  menu()
+else:
+  print("----------------------------------------")
+  print("Downloader require Python 3.5v or higher")
+  print("----------------------------------------")
