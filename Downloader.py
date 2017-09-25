@@ -6,6 +6,15 @@ class Downloader():
     path_lib = path_app + '/lib'
     path_store = path_app + '/storage'
 
+    def __init__(self):
+        if sys.version_info < (3,5):
+            print("--------------------------------------")
+            print("Downloader require Python 3v or higher")
+            print("--------------------------------------")
+            sys.exit(0)
+
+        self.start();
+
 
     def start(self):
         self.header()
@@ -37,11 +46,11 @@ class Downloader():
 
         # exit
         if choice == 0:
-        sys.exit(0)
+            sys.exit(0)
 
-        url         = input("URL(s): ")
-        path_extra  = input("Extra folder (empty for none): ")
-        downloader  = self.path_lib + '/youtube-dl' + ('.exe' if os.name=='nt' else '')
+        url = input("URL(s): ")
+        path_extra = input("Extra folder (empty for none): ")
+        downloader = self.path_lib + '/youtube-dl' + ('.exe' if os.name=='nt' else '')
 
         result = self.execute(choice, downloader, path_extra, url)
 
@@ -62,16 +71,16 @@ class Downloader():
         str_downloader = ''
 
         if path_extra:
-        path_extra += '/'
+            path_extra += '/'
 
         if choice == 1: # Video
-        str_downloader = "{0} -o \"{1}/single/{2}%(title)s-%(id)s.%(ext)s\" {3}"
+            str_downloader = "{0} -o \"{1}/single/{2}%(title)s-%(id)s.%(ext)s\" {3}"
 
         elif choice == 2: # Playlist
-        str_downloader = "{0} --yes-playlist -o \"{1}/playlist/{2}%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s\" {3}"
+            str_downloader = "{0} --yes-playlist -o \"{1}/playlist/{2}%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s\" {3}"
 
         elif choice == 3: # MP3
-        str_downloader = "{0} --extract-audio --audio-format mp3 -o \"{1}/mp3/{2}%(title)s-%(id)s.%(ext)s\" {3}"
+            str_downloader = "{0} --extract-audio --audio-format mp3 -o \"{1}/mp3/{2}%(title)s-%(id)s.%(ext)s\" {3}"
 
         # Executing Youtube-dl
         return os.system(str_downloader.format(downloader, self.path_store, path_extra, url))
@@ -84,7 +93,9 @@ class Downloader():
         choice = int(input("Want: "))
 
         if not (-1 < choice < 5):
-        input('Invalid choice\n')
-        self.start()
+            input('Invalid choice\n')
+            self.start()
 
         self.process(choice)
+
+Downloader()
