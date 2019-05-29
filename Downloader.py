@@ -7,12 +7,6 @@ class Downloader():
     path_store = path_app + '/storage'
 
     def __init__(self):
-        if sys.version_info < (3,5):
-            print("--------------------------------------")
-            print("Downloader require Python 3v or higher")
-            print("--------------------------------------")
-            sys.exit(0)
-
         self.start();
 
 
